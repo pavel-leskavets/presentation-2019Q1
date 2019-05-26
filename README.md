@@ -30,8 +30,8 @@ The root reducer may combine the output of multiple reducers into a single state
 The Redux store saves the complete state tree returned by the root reducer. This new tree is now the next state of your app! Every listener registered with store.subscribe(listener) will now be invoked; listeners may call store.getState() to get the current state. Now, the UI can be updated to reflect the new state. If you use bindings like React Redux, this is the point at which component.setState(newState) is called.   
 `(Slide - Code example)`  
 Apollo Link State 
-Peggy Rayzis from Apollo implemented a library for managing local state as well to avoid the necessity for using a state management library from above when managing the state from the GraphQL Server in your app. You do not even need to consume a GraphQL API to use the expressive query language. You can simply query and mutate your local application state. You define the state of your application by creating an ApolloClientwith LocalLink . 
-`(Slide - What os Apollo link state)`  
+Peggy Rayzis from Apollo implemented a library for managing local state as well to avoid the necessity for using a state management library from above when managing the state from the GraphQL Server in your app. You do not even need to consume a GraphQL API to use the expressive query language. You can simply query and mutate your local application state. You define the state of your application by creating an ApolloClientwith LocalLink.   
+`(Slide - What is Apollo link state)`  
 `(Slide - Code example)`  
 From this point on you are able read from your local state by writing GraphQL queries where each top level field includes the @client directive. By appending this directive Apollo knows, that you want to fetch from your local state.  
 `(Slide - GraphQL queries)`  
