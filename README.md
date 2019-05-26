@@ -7,9 +7,9 @@ In this article I will present multiple state-of-the-art state management librar
 `(Slide - What will be discussed)`  
 In an application, state is the interface between your data from any kind of backend or local change and the representation of this data with UI-elements in the frontend. State is able to keep the data of different components in sync because each state update will rerender all relevant components.   
 `(Slide - What is component state)`  
-Redux - a predictable state container for JavaScript apps.
+Redux - a predictable state container for JavaScript apps.  
 `(Slide - What is Redux)`  
-Redux was first released at June, 2015 by Dan Abramov.
+Redux was first released at June, 2015 by Dan Abramov.  
 `(Slide - Author of Redux)`  
 Installation  
 `(Slide - How to install Redux)`  
