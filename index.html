@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/reveal.css" />
+    <link rel="stylesheet" href="css/theme/black.css" />
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/monokai.css" />
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.6/build/styles/dracula.css"
+    />
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.6/build/highlight.min.js"></script>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css";
+      link.href = window.location.search.match(/print-pdf/gi)
+        ? "css/print/pdf.css"
+        : "css/print/paper.css";
+      document.getElementsByTagName("head")[0].appendChild(link);
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+				<section>
+						<h1>Comparison of state management solutions for React</h1>
+						<img src="./img/react-logo.png" alt="react-logo" class="img-logo" >
+						<p>By Pavel Leskavets 2019Q1</p>
+				</section>
+        <section>
+					<p>
+							The component-based approach of React and other frontend frameworks
+							like Vue and Angular has changed the way our web looks like today. 
+					</p>
+					<img src="./img/react-vs-angular.jpg" alt="react-angular" id="react-angular">
+				</section>
+				<section>
+						<div class="img-container">
+								<img src="./img/redux-apollo.png" alt="redux" id="redux-apollo-img">
+								<img src="./img/apollo-logo.png" alt="apollo" id="redux-apollo-img">
+						</div>						
+				</section>
+        <section>
+					<p>
+							Why do we need state at all In an application, state is the interface
+							between your data from any kind of backend or local change and the
+							representation of this data with UI-elements in the frontend. State is
+							able to keep the data of different components in sync because each
+							state update will rerender all relevant components.
+					</p>						
+        </section>
+        <section>
+						<h3>Component state</h3>
+						<img src="./img/state-component.png" alt="state" id="state-img">
+				</section>		
+				<section>
+						<h3>Redux - a predictable state container for JavaScript apps.</h3>
+				</section>
+				<section>
+						<img src="./img/dan-abramov.jpg" alt="dan-abramov">
+						<p>Redux was first released at June, 2015 by Dan Abramov</p>						
+				</section>
+				<section>
+						Installation <pre><code>npm install --save redux</code></pre>
+				</section>
+				<section>
+						<h3>Basic example</h3>
+						<p>
+								The whole state of your app is stored in an object tree inside a single store.
+								The only way to change the state tree is to emit an action, an object describing what happened.
+								To specify how the actions transform the state tree, you write pure reducers.
+						</p>
+						<img src="./img/reducers.png" alt="reducer" id="reducer">							
+				</section>
+				<section>
+					<pre><code>
+	function counter(state = 0, action) {
+		switch (action.type) {
+			case 'INCREMENT':
+				return state + 1
+			case 'DECREMENT':
+				return state - 1
+			default:
+				return state
+		}
+	}
+				</code></pre>
+				</section>
+				<section>
+					<p>
+							Instead of mutating the state directly, 
+						  you specify the mutations you want to happen with 
+						  plain objects called actions. Then you write a special 
+						  function called a reducer to decide how every action 
+							transforms the entire application's state.
+					</p>							
+				</section>
+				<section>
+					<p>
+							Actions are payloads of information that send data 
+							from your application to your store. They are the only 
+							source of information for the store. You send them to the 
+							store using <pre><code> store.dispatch()</code></pre>
+					</p>							
+<pre><code>
+	const ADD_TODO = 'ADD_TODO';
+		{
+			type: ADD_TODO,
+			text: 'Build my first Redux app'
+		}
+</code></pre>
+					<p>
+							Actions are plain JavaScript objects. Actions must have a 
+							type property that indicates the type of action being performed. 
+							Types should typically be defined as string constants.
+					</p>									
+				</section>
+				
+					<section>
+								<p>
+										The data lifecycle in any Redux app follows these 4 steps:
+										You call store.dispatch(action).
+										An action is a plain object describing what happened. For example:
+								</p>								
+<pre><code>
+{ type: 'LIKE_ARTICLE', articleId: 42 }
+{ type: 'FETCH_USER_SUCCESS', response: { id: 3, name: 'Mary' } }
+{ type: 'ADD_TODO', text: 'Read the Redux docs.' }
+</code></pre>
+								<p>
+										You can call store.dispatch(action) from anywhere in your app, including 
+										components and XHR callbacks, or even at scheduled intervals.
+								</p>										
+							</section>
+							<section>
+								<img src="./img/this-product.jpg" alt="product" id="product">
+					</section>
+					<section>
+								<p>
+										The root reducer may combine the output of multiple reducers into a single state tree.
+										How you structure the root reducer is completely up to you. Redux ships with a combineReducers() helper 
+										function, useful for “splitting” the 
+										root reducer into separate functions that each manage one branch of the state tree.										
+										Here's how combineReducers() works. Let's say you have two reducers, one for a list of 
+										todos, and another for the currently selected filter setting:
+								</p>								
+					</section>
+					<section>
+<pre><code>function todos(state = [], action) {
+	// Somehow calculate it...
+	return nextState
+	}
+	
+	function visibleTodoFilter(state = 'SHOW_ALL', action) {
+	// Somehow calculate it...
+	return nextState
+	}
+	
+	let todoApp = combineReducers({
+	todos,
+	visibleTodoFilter
+})
+</code></pre>
+					</section>
+					
+					<section>
+						<h3>Apollo Link State</h3>
+						<p>
+							Peggy Rayzis from Apollo implemented a library for managing local state as 
+							well to avoid the necessity for using a state management library from above 
+							when managing the state from the GraphQL Server in your app. 
+						</p>									
+					</section>
+					<section>
+<pre><code>export const mountWithApollo = (initialState, Component) => {
+const cache = new InMemoryCache();
+// define the initial Store
+const defaultState = { todos: [] };
+const stateLink = withClientState({
+cache,
+defaults: initialState ? initialState : defaultState
+});
+const client = new ApolloClient({
+cache,
+link: stateLink
+});
+return (
+<ApolloProvider client={client}>
+<Component />
+</ApolloProvider>
+);
+};</code></pre>
+						</section>
+					<section>
+						<p>
+								From this point on you are able read from your local state by writing GraphQL queries 
+								where each top level field includes the @client directive. 
+								By appending this directive Apollo knows, that you want to fetch from your local state.
+						</p>								
+					</section>
+					<section>
+<pre><code>const TODO_QUERY = gql`
+{
+	todos @client {
+		id
+		title
+		finished
+	}
+}`;</code></pre>
+					</section>
+					<section>
+						<p>
+								If using Apollo with a GraphQL or REST server you can
+								request those sources as well in one single request. When using 
+								apollo-link-rest you can wrap an ordinary REST-resource to be 
+								queried and mutated by GraphQL queries/mutations.
+									The result of the query can be accessed with the Query-component
+									of Apollo, that accepts a render-method like the Subscriber in Unstated 
+									or the Consumer from the Context API.
+						</p>								
+					</section>
+					<section>
+						<h3>Conclusion</h3>
+						<img src="./img/conclusion.jpg" alt="conclusion" id="conclusion">										
+					</section>
+					<section>
+						<img src="./img/end.jpg" alt="end-presentation" id="end-presentation">
+					</section>					
+      </div>
+    </div>
+
+    <script src="js/reveal.js"></script>
+
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          { src: "plugin/markdown/marked.js" },
+          { src: "plugin/markdown/markdown.js" },
+          { src: "plugin/notes/notes.js", async: true },
+          { src: "plugin/highlight/highlight.js", async: true }
+        ]
+      });
+    </script>
+  </body>
+</html>
